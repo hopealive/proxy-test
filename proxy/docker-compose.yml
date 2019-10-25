@@ -1,0 +1,28 @@
+version: '3'
+services:
+    web:
+        image: nginx-test:latest
+        ports:
+            - 8081:8081
+        volumes:
+            - ./nginx/nginx-web.conf:/etc/nginx/nginx.conf
+            - ./nginx/fastcgi_params:/etc/nginx/fastcgi_params
+            - ./www:/var/www/
+        links:
+            - php
+    proxy:
+        image: nginx-test:latest
+        ports:
+            - 80:80
+        volumes:
+            - ./nginx/nginx-proxy.conf:/etc/nginx/nginx.conf
+            # - ./nginx/fastcgi_params:/etc/nginx/fastcgi_params
+            # - ./nginx/cloudflare.conf:/etc/nginx/cloudflare.conf
+            - ./www:/var/www/
+        links:
+            - web
+            - php
+    php:
+        image: php-7.3:latest
+        volumes:
+            - ./www:/var/www/
