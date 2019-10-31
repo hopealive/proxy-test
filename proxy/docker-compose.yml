@@ -18,6 +18,7 @@ services:
             - ./nginx/nginx-proxy.conf:/etc/nginx/nginx.conf
             # - ./nginx/fastcgi_params:/etc/nginx/fastcgi_params
             - ./nginx/cloudflare.conf:/etc/nginx/cloudflare.conf
+            - ./nginx/upstreams:/etc/nginx/upstreams
             - ./www:/var/www/
         links:
             - web
